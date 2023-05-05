@@ -1,14 +1,17 @@
 const path = require('path')
 const express = require('express')
+//!Change: Mongoose is not longer required
+//const mongoose= require('mongoose)
 const dotenv = require('dotenv')
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
 const methodOverride = require('method-override')
 const passport = require('passport');
 const session = require('express-session')
-const MongoStore = require('connect-mongo')
+//!Change: MongoStore does not require (session) 
+const MongoStore = require('connect-mongo')//(session)
 const connectDB = require('./config/db')
-const { extname } = require('path')
+
 
 //Load config
 dotenv.config({ path: './config/config.env' })
@@ -60,22 +63,19 @@ app.engine(
         extname: '.hbs'
     })
 );
-
-
 app.set('view engine', '.hbs');
-app.set('views', path.join(__dirname, 'views'));
-
-
 
 //Sessions
-app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URI
+app.use(
+    session({
+        secret: 'keyboard cat',
+        resave: false,
+        saveUninitialized: false,
+        //!Change: MongoStore syntax has changed
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGO_URI
+        })
     })
-})
 )
 
 //Passport Middleware

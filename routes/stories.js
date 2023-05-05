@@ -117,6 +117,7 @@ router.put('/:id', ensureAuth, async (req, res) => {
 
 //@desc Delete story
 //@route DELETE /stories/:id
+//!Change: .remove is depricated and needs to be replaced with .deleteOne
 router.delete('/:id', ensureAuth, async (req, res) => {
     try {
         await Story.deleteOne({ _id: req.params.id });
@@ -130,6 +131,7 @@ router.delete('/:id', ensureAuth, async (req, res) => {
 
 // @desc    User stories
 // @route   GET /stories/user/:userId
+// Cannot get this to work- fix later. cannot click on user name to see specific user's posts
 router.get('/user/:userId', ensureAuth, async (req, res) => {
     try {
         const stories = await Story.find({
