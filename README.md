@@ -152,7 +152,7 @@ in `app.js`:
               },
               
               
- MongooStore Syntax has changed:
+ MongoStore Syntax has changed:
  
         app.use(
     session({
